@@ -1,57 +1,38 @@
-# Project Name
+# *Azure Event Grid Viewer*
 
-(short, 1-3 sentenced, description of the project)
+This repository contains the source code for a site that displays events from Azure Event Grid in near-real time. It is built on ASP.NET Core 2.1 and leverages SignalR to display incoming messages.
 
-## Features
+For details about how it was put together, please refer to the accompanying blog post: 
+https://madeofstrings.com/2018/03/14/azure-event-grid-viewer-with-asp-net-core-and-signalr/
 
-This project framework provides the following features:
+# Deploy the solution
 
-* Feature 1
-* Feature 2
-* ...
+## 1. Select Deploy to Azure
 
-## Getting Started
+This will launch a custom template for the Azure portal instance that you are logged into.
 
-### Prerequisites
-
-(ideally very short, if any)
-
-- OS
-- Library version
-- ...
-
-### Installation
-
-(ideally very short)
-
-- npm install [package name]
-- mvn install
-- ...
-
-### Quickstart
-(Add steps to get up and running quickly)
-
-1. git clone [repository clone url]
-2. cd [respository name]
-3. ...
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazure-event-grid-viewer%2Fmaster%2Fazuredeploy.json" target="_blank"><img src="http://azuredeploy.net/deploybutton.png"/></a>
 
 
-## Demo
+## 2. Fill out the required fields 
 
-A demo app is included to show how to use the project.
+This will take about 2-5 minutes to provision.
 
-To run the demo, follow these steps:
+![alt text](https://raw.githubusercontent.com/Azure-Samples/azure-event-grid-viewer/master/customdeployment_sm.png)
 
-(Add steps to start up the demo)
 
-1.
-2.
-3.
+## 3. Launch the site
 
-## Resources
+Launch the site to ensure that it is running. Make note of the address for the next step.
 
-(Any additional resources or related projects)
+## 4. Register the endpoint as an event subscription
 
-- Link to supporting information
-- Link to similar sample
-- ...
+The event subscription endpoint will be the address with the following suffix: */api/updates*. 
+
+For example: https://{{site-name}}.azurewebsites.net/api/updates
+
+## 5. References
+
+Routing events to a custom endpoint: https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-event-quickstart?toc=%2fazure%2fevent-grid%2ftoc.json
+
+
