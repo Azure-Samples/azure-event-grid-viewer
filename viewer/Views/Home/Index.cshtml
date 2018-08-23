@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Azure Event Grid Viewer";
+}
+
+<div>
+    <p style="float: left; font-size: 24px;" class="lead">
+        <img src="~/images/eventgrid.png" height="47" width="90" alt="Azure Event Grid" />
+        <strong>Azure Event Grid Viewer</strong>
+    </p>
+    <p style="float: right;">
+        <button class="btn btn-primary btn-xs" id="clear-events">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </p>
+</div>
+<div style="clear: both;"></div>
+<hr /><br /><br />
+
+<table id="grid-events" class="table table-striped">
+    <thead>
+    <th>&nbsp;</th>
+    <th>Event Type</th>
+    <th>Subject</th>
+    </thead>
+    <tbody id="grid-event-details"></tbody>
+</table>
+
+<script id="event-template" type="text/x-handlebars-template">
+    <tr data-toggle="collapse" data-target="#event-{{gridEventId}}" class="accordian-toggle">
+        <td>
+            <button class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </button>
+        </td>
+        <td>{{gridEventType}}</td>
+        <td>{{gridEventSubject}}</td>
+    </tr>
+    <tr class="hiddenRow collapse" id="event-{{gridEventId}}">
+        <td colspan="12">
+            <div class="accordian-body">
+                <pre><code class="nohighlight">{{gridEvent}}</code></pre>
+            </div>
+        </td>
+    </tr>
+</script>
+
+@section scripts {
+    <script src="~/lib/signalr.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+    <script type="text/javascript">
+
+        var hubConnection;
+
+        var clear = function () {
+            $("#grid-events").find("tr:gt(0)").remove();
+            $("#grid-events").hide();
+        }
+
+        var addEvent = function (id, eventType, subject, eventTime, data) {
+            var context = {
+                gridEventType: eventType,
+                gridEventSubject: subject,
+                gridEventId: id,
+                gridEvent: data
+            };
+            var source = document.getElementById('event-template').innerHTML;
+            var template = Handlebars.compile(source);
+            var html = template(context);
+
+            $("#grid-events").show();
+            $('#grid-event-details').prepend(html);
+        }
+
+        var initialize = function () {
+            $("#grid-events").hide();
+            var clearEvents = document.getElementById('clear-events');
+            clearEvents.addEventListener('click', function () {
+                clear();
+            });
+
+            hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl("hubs/gridevents")
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            hubConnection.start().catch(err => console.error(err.toString()));
+            hubConnection.on('gridupdate', function (id, eventType, subject, eventTime, data) {
+                addEvent(id, eventType, subject, eventTime, data);
+            });
+        };
+
+        $(document).ready(function () {
+            initialize();
+        });
+
+    </script>
+
+}
