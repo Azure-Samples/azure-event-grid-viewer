@@ -95,5 +95,11 @@
           }
         ]
       }
-    ]
+    ],
+    "outputs": {
+        "appServiceEndpoint": {
+            "type": "string",
+            "value": "[concat('https://',reference(resourceId('Microsoft.Web/sites', parameters('siteName'))).hostNames[0])]"
+        }
+    }
   }
