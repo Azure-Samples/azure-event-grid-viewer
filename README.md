@@ -1,4 +1,15 @@
-# *Azure Event Grid Viewer*
+---
+page_type: sample
+languages:
+  - csharp
+products:
+  - dotnet
+  - azure
+  - azure-event-grid
+description: "Source code for a site that displays events from Azure Event Grid in near-real time."
+---
+
+# Azure Event Grid Viewer
 
 This repository contains the source code for a site that displays events from Azure Event Grid in near-real time. It is built on ASP.NET Core 2.1 and leverages SignalR to display incoming messages.
 
