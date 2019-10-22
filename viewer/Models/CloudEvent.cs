@@ -3,25 +3,27 @@ using Newtonsoft.Json;
 
 namespace viewer.Models
 {
+    // Reference: https://github.com/cloudevents/spec/tree/v1.0-rc1 
+
     public class CloudEvent<T> where T : class
     {
-        [JsonProperty("eventID")]
-        public string EventId { get; set; }
+        [JsonProperty("specversion")]
+        public string SpecVersion { get; set; }
 
-        [JsonProperty("cloudEventsVersion")]
-        public string CloudEventVersion { get; set; }
-
-        [JsonProperty("eventType")]
-        public string EventType { get; set; }
-
-        [JsonProperty("eventTypeVersion")]
-        public string EventTypeVersion { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
 
         [JsonProperty("source")]
         public string Source { get; set; }
 
-        [JsonProperty("eventTime")]
-        public string EventTime { get; set; }
+        [JsonProperty("subject")]
+        public string Subject { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("time")]
+        public string Time { get; set; }
 
         [JsonProperty("data")]
         public T Data { get; set; }
