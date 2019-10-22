@@ -123,14 +123,12 @@ namespace viewer.Controllers
         {
             var details = JsonConvert.DeserializeObject<CloudEvent<dynamic>>(jsonContent);
 
-            // CloudEvents schema and mapping to 
-            // Event Grid: https://docs.microsoft.com/en-us/azure/event-grid/cloudevents-schema 
             await this._hubContext.Clients.All.SendAsync(
                 "gridupdate",
-                details.EventId,
-                details.EventType,
+                details.Id,
+                details.Type,
                 details.Source,
-                details.EventTime,
+                details.Time,
                 jsonContent
             );
 
@@ -147,8 +145,8 @@ namespace viewer.Controllers
                 // Attempt to read one JSON object. 
                 var eventData = JObject.Parse(jsonContent);
 
-                // Check for the cloud events version property.
-                var version = eventData["cloudEventsVersion"].Value<string>();
+                // Check for the spec version property.
+                var version = eventData["specversion"].Value<string>();
                 if (!string.IsNullOrEmpty(version)) return true;
             }
             catch (Exception e)
