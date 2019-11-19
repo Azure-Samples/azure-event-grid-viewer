@@ -43,6 +43,21 @@ namespace viewer.Controllers
 
         #region Public Methods
 
+        [HttpOptions]
+        public async Task<IActionResult> Options()
+        {
+            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                var webhookRequestOrigin = HttpContext.Request.Headers["WebHook-Request-Origin"].FirstOrDefault();
+                var webhookRequestCallback = HttpContext.Request.Headers["WebHook-Request-Callback"];
+                var webhookRequestRate = HttpContext.Request.Headers["WebHook-Request-Rate"];
+                HttpContext.Response.Headers.Add("WebHook-Allowed-Rate", "*");
+                HttpContext.Response.Headers.Add("WebHook-Allowed-Origin", webhookRequestOrigin);
+            }
+
+            return Ok();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post()
         {
@@ -122,16 +137,15 @@ namespace viewer.Controllers
         private async Task<IActionResult> HandleCloudEvent(string jsonContent)
         {
             var details = JsonConvert.DeserializeObject<CloudEvent<dynamic>>(jsonContent);
+            var eventData = JObject.Parse(jsonContent);
 
-            // CloudEvents schema and mapping to 
-            // Event Grid: https://docs.microsoft.com/en-us/azure/event-grid/cloudevents-schema 
             await this._hubContext.Clients.All.SendAsync(
                 "gridupdate",
-                details.EventId,
-                details.EventType,
-                details.Source,
-                details.EventTime,
-                jsonContent
+                details.Id,
+                details.Type,
+                details.Subject,
+                details.Time,
+                eventData.ToString()
             );
 
             return Ok();
@@ -147,8 +161,8 @@ namespace viewer.Controllers
                 // Attempt to read one JSON object. 
                 var eventData = JObject.Parse(jsonContent);
 
-                // Check for the cloud events version property.
-                var version = eventData["cloudEventsVersion"].Value<string>();
+                // Check for the spec version property.
+                var version = eventData["specversion"].Value<string>();
                 if (!string.IsNullOrEmpty(version)) return true;
             }
             catch (Exception e)
