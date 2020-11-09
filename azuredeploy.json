@@ -29,6 +29,15 @@
           "description": "The pricing tier for the hosting plan."
         }
       },
+      "identity": {
+        "type": "string",
+        "defaultValue": "None",
+        "allowedValues": [
+          "None",
+          "SystemAssigned",
+          "UserAssigned"
+        ]
+      },
       "repoURL": {
         "type": "string",
         "defaultValue": "https://github.com/Azure-Samples/azure-event-grid-viewer.git",
@@ -69,6 +78,9 @@
         "apiVersion": "2015-08-01",
         "name": "[parameters('siteName')]",
         "type": "Microsoft.Web/sites",
+        "identity": {
+          "type": "[parameters('identity')]"
+        },
         "location": "[parameters('location')]",
         "dependsOn": [
           "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
@@ -76,7 +88,7 @@
         "properties": {
           "serverFarmId": "[parameters('hostingPlanName')]",
           "siteConfig": {
-                "webSocketsEnabled": true
+            "webSocketsEnabled": true
           }          
         },
         "resources": [
