@@ -21,13 +21,13 @@ For details about how it was put together, please refer to the [accompanying blo
 
 This will launch a custom template for the Azure portal instance that you are logged into.
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazure-event-grid-viewer%2Fmaster%2Fazuredeploy.json" target="_blank"><img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true"/></a>
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fazure-event-grid-viewer%2Fmain%2Fazuredeploy.json" target="_blank"><img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/main/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true"/></a>
 
 ### 2. Fill out the required fields
 
 This will take about 2-5 minutes to provision.
 
-![Custom deployment](https://raw.githubusercontent.com/Azure-Samples/azure-event-grid-viewer/master/customdeployment_sm.png)
+![Custom deployment](https://raw.githubusercontent.com/Azure-Samples/azure-event-grid-viewer/main/customdeployment_sm.png)
 
 ### 3. Launch the site
 
