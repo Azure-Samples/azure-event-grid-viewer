@@ -77,7 +77,8 @@
           "serverFarmId": "[parameters('hostingPlanName')]",
           "siteConfig": {
                 "webSocketsEnabled": true
-          }          
+          },
+          "httpsOnly":true
         },
         "resources": [
           {
