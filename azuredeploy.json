@@ -34,8 +34,7 @@
         "defaultValue": "None",
         "allowedValues": [
           "None",
-          "SystemAssigned",
-          "UserAssigned"
+          "SystemAssigned"
         ]
       },
       "repoURL": {
