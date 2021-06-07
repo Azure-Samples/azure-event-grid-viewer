@@ -67,7 +67,7 @@
         "location": "[parameters('location')]",
         "sku": {
           "name": "[parameters('sku')]",
-          "capacity": "0"
+          "capacity": 0
         },
         "properties": {
           "name": "[parameters('hostingPlanName')]"
@@ -93,7 +93,7 @@
         },
         "resources": [
           {
-            "apiVersion": "2015-08-01",
+            "apiVersion": "2018-11-01",
             "name": "web",
             "type": "sourcecontrols",
             "dependsOn": [
