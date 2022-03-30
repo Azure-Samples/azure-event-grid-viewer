@@ -11,7 +11,7 @@ description: "Source code for a site that displays events from Azure Event Grid 
 
 # Azure Event Grid Viewer
 
-This repository contains the source code for a site that displays events from Azure Event Grid in near-real time. It is built on ASP.NET Core 3.1 and leverages SignalR to display incoming messages.
+This repository contains the source code for a site that displays events from Azure Event Grid in near-real time. It is built on [ASP.NET Core](https://docs.microsoft.com/aspnet/core) and leverages [SignalR](https://dotnet.microsoft.com/apps/aspnet/signalr) to display incoming messages.
 
 For details about how it was put together, please refer to the [accompanying blog post](https://madeofstrings.com/2018/03/14/azure-event-grid-viewer-with-asp-net-core-and-signalr/).
 
@@ -42,4 +42,4 @@ For example: `https://{{site-name}}.azurewebsites.net/api/updates`
 ### 5. References
 
 - [Routing events to a custom endpoint](https://docs.microsoft.com/azure/storage/blobs/storage-blob-event-quickstart?toc=%2fazure%2fevent-grid%2ftoc.json)
-- [Receive events to an HTTP endpoint](https://docs.microsoft.com/en-us/azure/event-grid/receive-events)
+- [Receive events to an HTTP endpoint](https://docs.microsoft.com/azure/event-grid/receive-events)
