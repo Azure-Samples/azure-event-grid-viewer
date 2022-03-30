@@ -76,13 +76,20 @@
         "properties": {
           "serverFarmId": "[parameters('hostingPlanName')]",
           "siteConfig": {
-            "webSocketsEnabled": true         
+            "webSocketsEnabled": true,
+            "netFrameworkVersion":  "v6.0",
+            "metadata": [
+              {
+                "name": "CURRENT_STACK",
+                "value": "dotnet"
+              }              
+            ]         
           },
-          "httpsOnly":true
+          "httpsOnly": true          
         },
         "resources": [
           {
-            "apiVersion": "2018-11-01",
+            "apiVersion": "2020-12-01",
             "name": "web",
             "type": "sourcecontrols",
             "dependsOn": [
